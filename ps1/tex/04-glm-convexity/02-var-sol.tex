@@ -1,0 +1,11 @@
+\begin{answer}
+\begin{align*}
+    \frac{\partial \int P(y; \eta) dy}{\partial^2 \eta} &= \frac{\partial}{\partial \eta}\int \frac{\partial P(y;\eta)}{\partial \eta} dy\\
+    &= \frac{\partial}{\partial \eta}(\int y b(y) exp(\eta y - a(\eta)) dy - a'(\eta))\\
+    &= \int y(y - a'(\eta))b(y)exp(\eta y - a(\eta)) dy - a''(\eta)\\
+    &= \mathbb{E}(y^2) - \mathbb{E}^2(y) - a''(\eta)\\
+    &= D(y) - a''(\eta)
+\end{align*}
+note that $\frac{\partial \int P(y; \eta) dy}{\partial^2 \eta} = 0$\\
+So, $D(y) - a''(\eta) = 0$, $D(y) = a''(\eta)$
+\end{answer}

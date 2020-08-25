@@ -1,0 +1,16 @@
+\begin{answer}
+\begin{align*}
+    P(y;\eta) &= b(y)exp(\eta y - a(\eta))\\
+    \int P(y;\eta) dy &= 1\\
+    \frac{\partial \int P(y;\eta) dy}{\partial \eta} &= 0\\
+\end{align*}
+\begin{align*}
+    \int \frac{\partial P(y; \eta) dy}{\partial \eta} &= \int (y - a'(\eta)) b(y) exp(\eta y - a(\eta)) dy\\
+    &= \int yb(y) exp(\eta y - a(\eta)) dy - \int a'(\eta) b(y) exp(\eta y - a(\eta)) dy\\
+    &= \mathbb{E}(y;\eta) - a'(\eta)\\
+\end{align*}
+\begin{align*}
+    \mathbb{E}(y;\eta) - a'(\eta) &= 0\\
+    \mathbb{E}(y;\eta) &= a'(\eta)
+\end{align*}
+\end{answer}

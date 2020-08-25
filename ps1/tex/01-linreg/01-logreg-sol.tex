@@ -1,0 +1,29 @@
+\begin{answer}
+note that we have following equations:
+\begin{align*}
+J(\theta) &= - \frac{1}{m} \sum \limits_{i=1}^m L_i(\theta)\\
+L_i(\theta) &= y^{(i)}log h_\theta(x^{(i)})
+\end{align*}
+We can take the derivative of $L_i(\theta)$ with respect to the k(th) element of $\theta$. The result is following:
+\begin{align*}
+\frac{\partial L_i(\theta)}{\partial \theta_k} &= y^{(i)}\frac{1}{h_\theta(x^{(i)})}h_\theta(x^{(i)})(1-h_\theta(x^{(i)}))x^{(i)}_k\\&\quad-(1-y^{(i)})\frac{1}{1-h_\theta(x^{(i)})}(1-h_\theta(x^{(i)}))h_\theta(x^{(i)})x^{(i)}_k\\
+&=y^{(i)}x^{(i)}_k - y^{(i)}h_\theta(x^{(i)})x^{(i)}_k+y^{(i)}h_\theta(x^{(i)})x^{(i)}_k-h_\theta(x^{(i)})x^{(i)}_k\\
+&=(y^{(i)}-h_\theta(x^{(i)}))x^{(i)}_k
+\end{align*}
+Then, we need to calculate the second derivative of $L_i(\theta)$
+\begin{align*}
+    \frac{\partial L_i(\theta)}{\partial \theta_k \partial \theta_j} &= \frac{\partial (y^{(i)}-h_\theta(x^{(i)}))x^{(i)}_k}{\partial \theta_j}\\
+    &=x^{(i)}_k\cdot(-1)\cdot \frac{\partial g(\theta^T x^{(i)}}{\partial \theta_j}\\
+    &=-x^{(i)}_k x^{(i)}_j h_\theta(x^{(i)}) (1 - h_\theta(x^{(i)}))
+\end{align*}
+Using the above equations, we can calculate the Hessian H of the fucntion $J(\theta)$. The element of H in row k and column j is following:
+\begin{align*}
+    \frac{\partial J(\theta)}{\partial \theta_k \partial \theta_j} &= - \frac{1}{m}\sum\limits_{i=1}^m -x^{(i)}_k x^{(i)}_j h_\theta(x^{(i)}) (1 - h_\theta(x^{(i)}))\\
+    &= \frac{1}{m}\sum\limits_{i=1}^m x^{(i)}_k x^{(i)}_j h_\theta(x^{(i)}) (1 - h_\theta(x^{(i)}))
+\end{align*}
+So, take a random vector $z \in R^n$, $z^T H z$ is following:
+\begin{align*}
+    z^T H z &= \frac{1}{m}\sum\limits_{i=1}^m h_\theta(x^{(i)}) (1 - h_\theta(x^{(i)})) \sum\limits_j \sum\limits_k z_j x^{(i)}_j x^{(i)}_k z_k\\
+    &= \frac{1}{m}\sum\limits_{i=1}^m h_\theta(x^{(i)}) (1 - h_\theta(x^{(i)})) \sum\limits_j (z_j x^{(i)}_j)^2 >= 0
+\end{align*}
+\end{answer}

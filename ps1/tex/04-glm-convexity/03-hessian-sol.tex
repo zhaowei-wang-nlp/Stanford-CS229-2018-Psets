@@ -1,0 +1,16 @@
+\begin{answer}
+\begin{align*}
+    l(\theta) = log P(y;\eta) = -log b(y)-\eta^T T(y)+a(\eta)\\
+    =-log b(y) - \theta^T x y + a(\theta^T x)
+\end{align*}
+the first and second derivatives of $l(\theta)$ are:
+\begin{align*}
+    \frac{\partial l(\theta)}{\partial \theta_j} &= -y x_i + a'(\theta^T x)x_i\\
+    \frac{\partial^2 l(\theta)}{\partial \theta_i \partial \theta_j} &= a''(\theta^T x)x_i x_j
+\end{align*}
+So, the Hessian matrix is $H = \frac{\partial^2 l(\theta)}{\partial \theta^2} = a''(\theta^T x) x x^T$
+\begin{align*}
+    \forall z \in \mathbb{R}^n, z^T H z &= a''(\theta^T x) z^T x x^T z\\
+    &= a''(\theta^T x) (x^T z)^2 \geq 0
+\end{align*}
+\end{answer}

@@ -1,0 +1,25 @@
+\begin{answer}
+Calculate the derivative of $l(\phi, \mu_0, \mu_1, \Sigma)$ with respect to $\phi$:
+\begin{align*}
+    \frac{\partial l}{\partial \phi} &= \sum\limits_{i=1}^m (log P(x^{(i)}|y^{(i)};\mu_0,\mu_1,\Sigma) + log P(y^{(i)};\phi))\\
+    &= \frac{1}{P(y^{(i)}; \phi)} \frac{\partial \phi^{y^{(i)}} (1 - \phi)^{(1 - y^{(i)})} }{\partial \phi}\\
+    &= \sum\limits_{i=1}^m(\frac{y^{(i)}}{\phi} + \frac{1 - y^{(i)}}{1 - \phi})
+\end{align*}
+set the derivative to zeros:
+\begin{align*}
+    &\sum\limits_{i=1}^m(\frac{y^{(i)}}{\phi} + \frac{1 - y^{(i)}}{1 - \phi}) = 0\\
+    &\phi = \frac{\sum\limits_i y^{(i)}}{m}
+\end{align*}
+Calculate the derivatives of $l(\phi, \mu_0, \mu_1, \Sigma)$ with respect to $\mu_0,\mu_1, \Sigma$:
+\begin{align*}
+    \frac{\partial l}{\partial \mu_1} &= \sum\limits_{i=1}^m y^{(i)} \frac{x^{(i)} - \mu_1}{\sigma^2}\\
+    \frac{\partial l}{\partial \mu_0} &= \sum\limits_{i=1}^m (1 - y^{(i)}) \frac{x^{(i)} - \mu_0}{\sigma^2}\\
+    \frac{\partial l}{\partial \sigma} &= \sum\limits_{i=1}^m (-\frac{1}{\sigma} + \frac{(x^{(i)} - u_{y^{(i)}})^2}{\sigma^3})
+\end{align*}
+Set all derivatives to zero:
+\begin{align*}
+    \mu_1 &= \frac{\sum\limits_{i=1}^m y^{(i)}}{m}\\
+    \mu_0 &= \frac{\sum\limits_{i=1}^m (1 - y^{(i)})}{m}\\
+    \Sigma &= \sigma^2 = \frac{\sum\limits_{i=1}^m (x^{(i)} - \mu_{y^{(i)}})^2}{m}
+\end{align*}
+\end{answer}
