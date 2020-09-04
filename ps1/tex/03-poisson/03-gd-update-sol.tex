@@ -1,8 +1,8 @@
 \begin{answer}
 the log-likelihood of the Poisson distribution:
-$$log P(y|x;\theta) = -log^{y!} + y \theta^T x - e^{\theta^T x}$$
+$$\log P(y|x;\theta) = -\log^{y!} + y \theta^T x - e^{\theta^T x}$$
 the derivative of the log-likelihood with respect to $\theta_j$:
-$$\frac{\partial log P(y|x;\theta)}{\partial \theta_j} = y^{(i)}x^{(i)}_j - x^{(i)}_je^{\theta^T x^{(i)}}$$
+$$\frac{\partial \log P(y|x;\theta)}{\partial \theta_j} = y^{(i)}x^{(i)}_j - x^{(i)}_je^{\theta^T x^{(i)}}$$
 the update rule is:
 $$\theta_j = \theta_j + \alpha (y^{(i)} - e^{\theta^T x^{(i)}}) x^{(i)}_j$$
 \end{answer}

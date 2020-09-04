@@ -1,7 +1,7 @@
 \begin{answer}
 Calculate the derivative of $l(\phi, \mu_0, \mu_1, \Sigma)$ with respect to $\phi$:
 \begin{align*}
-    \frac{\partial l}{\partial \phi} &= \sum\limits_{i=1}^m (log P(x^{(i)}|y^{(i)};\mu_0,\mu_1,\Sigma) + log P(y^{(i)};\phi))\\
+    \frac{\partial l}{\partial \phi} &= \sum\limits_{i=1}^m (\log P(x^{(i)}|y^{(i)};\mu_0,\mu_1,\Sigma) + \log P(y^{(i)};\phi))\\
     &= \frac{1}{P(y^{(i)}; \phi)} \frac{\partial \phi^{y^{(i)}} (1 - \phi)^{(1 - y^{(i)})} }{\partial \phi}\\
     &= \sum\limits_{i=1}^m(\frac{y^{(i)}}{\phi} + \frac{1 - y^{(i)}}{1 - \phi})
 \end{align*}

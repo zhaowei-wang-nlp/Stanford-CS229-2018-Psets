@@ -1,0 +1,10 @@
+\begin{answer}
+We get the parameter by maximizing the log-likelihood. So, we calculate the derivative of the log-likelihood and set it to zero.
+\begin{align*}
+    &\frac{\partial \sum (y\log h_\theta(x) + (1 - y)\log(1 - h_\theta(x)) )}{\partial \theta} = \sum (y - h_\theta(x))x\\
+    &\sum(y - h_\theta(x)) \begin{bmatrix} 1 \\ x_1 \\ x_2\\ ...\\ x_n\\\end{bmatrix} = 0\\
+\end{align*}
+consider the first row, we can get $$(\sum(y - h_\theta(x)) )\cdot 1 = 0$$
+Thus, by rewriting $y$ and $h_\theta(x)$ as $\mathbb{I}\{y^{(i)}=1\}$ and $P(y^{(i)}=1|x^{(i)};\theta)$ respectively, we can get $\sum_{i\in I_{0, 1}}P(y^{(i)}=1|x^{(i)};\theta)=\sum_{i\in I_{0, 1}}\mathbb{I}\{y^{(i)}=1\}$. Then, we divide both side by $|\{i\in I_{0,1}\}|$, which is $|S|$:
+$$\frac{\sum_{i\in I_{0, 1}}P(y^{(i)}=1|x^{(i)};\theta)}{|\{i\in I_{0,1}\}|} = \frac{\sum_{i\in I_{0, 1}}\mathbb{I}\{y^{(i)}=1\}}{|\{i\in I_{0,1}\}|}$$
+\end{answer}

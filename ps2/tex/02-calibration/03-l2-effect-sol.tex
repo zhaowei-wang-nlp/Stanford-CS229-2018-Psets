@@ -1,0 +1,12 @@
+\begin{answer}
+By add an regularization term, the loss function becomes $$J(\theta) = \lambda||\theta||^2 + \sum (y\log h_\theta(x)+(1-y)\log(1-h_\theta(x)))$$
+The derivative of the loss function becomes $$J'(\theta) = 2\lambda\theta + \sum(y - h_\theta(x))x $$
+set the derivative to zero
+$$2\lambda \begin{bmatrix}\theta_0\\ \theta_1\\ \theta_2\\ ...\\ \theta_n\end{bmatrix} + \sum(y - h_\theta(x))\begin{bmatrix}1\\ x_1\\ x_2\\ ...\\ x_n\end{bmatrix} = 0$$
+consider the first row
+\begin{align*}
+    &2\lambda\theta_0 + \sum(y - h_\theta(x)) = 0\\
+    &\sum h_\theta(x) = 2\lambda\theta_0 + \sum \mathbb{I}\{y = 1\}
+\end{align*}
+So, the prediction is biased by a constant $2\lambda\theta_0$
+\end{answer}

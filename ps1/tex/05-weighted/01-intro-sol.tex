@@ -20,8 +20,8 @@ We can get the formula for $\theta$:
 
 (iii)
 \begin{align*}
-    \mathop{\arg\max}\limits_\theta \prod\limits_i P(y^{(i)}|x^{(i)};\theta) &= \mathop{\arg\max}\limits_\theta \sum\limits_i log P(y^{(i)}|x^{(i)};\theta)\\
-    &= \mathop{\arg\max}\limits_\theta \sum\limits_i -log\sqrt{2\pi}\delta^{(i)} - \frac{(y^{(i)} - \theta^T x^{(i)}) ^ 2}{2(\delta^{(i)})^2}\\
+    \mathop{\arg\max}\limits_\theta \prod\limits_i P(y^{(i)}|x^{(i)};\theta) &= \mathop{\arg\max}\limits_\theta \sum\limits_i \log P(y^{(i)}|x^{(i)};\theta)\\
+    &= \mathop{\arg\max}\limits_\theta \sum\limits_i -\log\sqrt{2\pi}\delta^{(i)} - \frac{(y^{(i)} - \theta^T x^{(i)}) ^ 2}{2(\delta^{(i)})^2}\\
     &= \mathop{\arg\min}\limits_\theta \sum\limits_i \frac{1}{2(\delta^{(i)})^2}(y^{(i)} - \theta^T x^{(i)})^2
 \end{align*}
 It's easy to see that $w^{(i)} = \frac{1}{(\delta^{(i)})^2}$

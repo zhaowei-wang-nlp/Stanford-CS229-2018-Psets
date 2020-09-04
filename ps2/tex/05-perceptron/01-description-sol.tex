@@ -1,0 +1,9 @@
+\begin{answer}\\
+a) The way to represent the high-dimensional parameter vector $\theta^{(i)}$: assume we have $m$ examples, we will represent $\theta^{(i)}$ as a linear combination of the feature vectors of $m$ examples. $$\theta^{(i)} = \sum\limits_{j=1}^m \beta_j \phi(x^{(j)})$$ \textbf{where $\beta_j = 0$ if $j > i$, otherwise $\beta_j = \alpha (y^{(j)} - h_{\theta^{(j-1)}} (x^{(j)}))$}\\
+The $\theta^{(0)}$ is represented as a linear combination of the feature vectors of examples, where all $\beta_j = 0$ \\
+b) The most difficult part of a prediction is how to compute $\theta^{{(i)}^T} \phi(x^{(i+1)})$. We can represent $\theta^{(i)}$ as a linear combination of the feature vectors of first $i$ training examples.
+$$\theta^{{(i)}^T} \phi(x^{(i+1)}) = (\sum\limits_{k=1}^i \beta_k \phi(x^{(k)}))^T \phi(x^{(i+1)}) = \sum\limits_{k=1}^i \beta_k K(\phi(x^{(k)}), \phi(x^{(i+1)}))$$
+So, we can use kernel $K$ to efficiently predict the label of a new input $x^{(i+1)}$.\\
+c) we represent $\theta^{(i)}$ as a liner combination of $x^{(1)}-x^{(i)}$. So, we only need to use a vector $\lambda^{(i)}$ record $\alpha(y^{(j)} - h_{\theta^{(j-1)}}(x^{(j)}))$ for each $x^{(j)}$, where $j\leq i$.\\
+The update rule is $\lambda^{(i)} = [\lambda^{(i-1)}, \alpha(y^{(i)} - h_{\theta^{(i-1)}}(x^{(i)}))]$. In othe words, we only need append a scalar $\alpha(y^{(i)} - h_{\theta^{(i-1)}}(x^{(i)}))$ at the end of $\lambda^{(i-1)}$ to get $\lambda^{(i)}$
+\end{answer}

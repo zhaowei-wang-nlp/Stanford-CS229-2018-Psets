@@ -1,0 +1,10 @@
+\begin{answer}\\
+By the assumption $P(\theta) = P(\theta|x)$, we know $P(\theta, x) = P(\theta)P(x)$ and $P(x|\theta) = P(x)$
+\begin{align*}
+    \theta_{MAP} &= \arg\max\limits_\theta p(\theta|x,y)\\
+    &= \arg\max\limits_\theta p(x,y|\theta)p(\theta)\\
+    &= \arg\max\limits_\theta p(y|x, \theta)p(x|\theta)p(\theta)\\
+    &= \arg\max\limits_\theta p(y|x, \theta)p(x)p(\theta)\\
+    &= \arg\max\limits_\theta p(y|x, \theta)p(\theta)
+\end{align*}
+\end{answer}

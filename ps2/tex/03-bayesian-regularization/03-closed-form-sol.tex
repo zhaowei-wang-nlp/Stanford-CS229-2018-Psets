@@ -1,0 +1,14 @@
+\begin{answer}\\
+\begin{align*}
+    \theta_{MAP} &= \arg\max\limits_\theta \log p(y|x, \theta) + \log p(\theta)\\
+    &= \arg\max\limits_\theta -\frac{1}{2\sigma^2} \sum(y - \theta^T x)^2 - \frac{1}{2\eta^2} \theta^T\theta\\
+    &= \arg\max\limits_\theta -\frac{1}{2\sigma^2} (\vec{y} - X\theta)^T (\vec{y} - X\theta) - \frac{1}{2\eta^2} \theta^T\theta\\
+    &=\arg\max\limits_\theta tr(-\frac{1}{2\sigma^2}(\vec{y}^T \vec{y} - 2\vec{y}^T X \theta + \theta^T X^T X \theta) - \frac{1}{2\eta^2} \theta^T\theta)
+\end{align*}
+We calculate the derivative of the above function (without $\arg\max$ operation) and set the derivative to zero.
+\begin{align*}
+    &\frac{\partial \log p(y|x, \theta) + \log p(\theta)}{\partial \theta} = \frac{1}{\sigma^2} (X^T \vec{y} - X^T X \theta) - \frac{1}{\eta^2}\theta\\
+    &\frac{1}{\eta^2}\theta + \frac{1}{\sigma^2} X^T X \theta = \frac{1}{\sigma^2}X^T \vec{y}\\
+    &\theta = (X^T X + \frac{\sigma^2}{\eta^2}I)^{-1} X^T \vec{y}
+\end{align*}
+\end{answer}

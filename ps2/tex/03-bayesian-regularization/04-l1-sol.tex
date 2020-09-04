@@ -1,0 +1,9 @@
+\begin{answer}
+the negative log-likelihood of MAP is $$-\log p(y|x,\theta) - \log p(\theta)$$
+\begin{align*}
+    \theta_{MAP} &= \arg\min\limits_\theta \frac{1}{2\sigma^2}(\vec{y}-X\theta)^T (\vec{y}-X\theta) + \sum\limits_i \frac{|\theta_i|}{b}\\
+    &= \arg\min\limits_\theta (\vec{y}-X\theta)^T (\vec{y}-X\theta) + \frac{2\sigma^2}{b}\sum\limits_i |\theta_i|\\
+    &= \arg\min\limits_\theta ||\vec{y}-X\theta||_2^2 + \frac{2\sigma^2}{b} ||\theta||_1
+\end{align*}
+So, that $\theta_{MAP}$ in this case is equivalent to the solution of linear regression with $L_1$ regularization. Also, $\gamma = \frac{2\sigma^2}{b}$
+\end{answer}

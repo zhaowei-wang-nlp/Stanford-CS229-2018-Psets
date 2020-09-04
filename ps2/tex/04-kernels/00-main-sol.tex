@@ -1,0 +1,55 @@
+\begin{answer}\\
+Let's take a finite set $\{x^{(1)}, x^{(2)}, ..., x^{(m)}\}$, and we will build kernel matrix on this data set. 
+\begin{enumerate}
+\item $K(x,z) = K_1(x,z) + K_2(x,z)$\\ 
+We already know $K_1$ and $K_2$ are kernels. So the kernel matrices $K_1$ and $K_2$ are symmetric and positive semidefinite.
+For the i th and j th examples in the data set, it's easy to see $K_{ij} = K_{1 ij}+K_{2 ij}$. So, for kernel matrices, $K = K_1 + K_2$.\\
+i) Because $K_1 = K_1^T$ and $K_2 = K_2^T$, we can know $K^T = (K_1 + K_2)^T = K_1^T + K_2^T = K_1 + K_2 = K$. So, the kernel matrix $K$ is symmetric.\\
+ii) Because $\forall z \in \mathbb{R}^n, z^T K_1 z \geq 0\ and\ z^T K_2 z \geq 0$, we can get $\forall z \in \mathbb{R}^n, z^T K z = z^T (K_1 + K_2) z = z^T K_1 z + z^T K_2 z \geq 0$. So, the kernel matrix $K$ is positive semidefinite.\\
+Based on i) and ii), we can know the kernel matrix $K$ is symmetric and positive semidefinite, the kernel function $K$, it is \textbf{necessarily} a kernel.
+\item $K(x,z) = K_1(x,z) - K_2(x,z)$\\
+It's easy to see, for kernel matrices, $K = K_1 - K_2$.\\
+i) Because $\forall z \in \mathbb{R}^n, z^T K_1 z \geq 0\ and\ z^T K_2 z \geq 0$, we can get $\forall z \in \mathbb{R}^n, z^T K z = z^T (K_1 - K_2) z = z^T K_1 z - z^T K_2 z$.\\
+So, the kernel function $K$ is \textbf{not necessarily} a kernel.\\
+Counter Example:\\
+$K_1 = \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, K_2 = \begin{bmatrix}2 & 0 \\ 0 & 2\end{bmatrix}, K = \begin{bmatrix}-1 & 0 \\ 0 & -1\end{bmatrix}$. K is not positive semidefinite.
+\item $K(x,z) = a K_1(x,z)$\\
+It's easy to see, for kernel matrices, $K = a K_1$.\\
+i) Because $K_1 = K_1^T$, we can know $K^T = (a K_1)^T = a K_1^T = a K_1 = K$. So, the kernel matrix $K$ is symmetric.\\
+ii) Because $\forall z \in \mathbb{R}^n, z^T K_1 z \geq 0$, we can get $\forall z \in \mathbb{R}^n, z^T K z = z^T (a K_1) z = a (z^T K_1 z)\geq 0$. So, the kernel matrix $K$ is positive semidefinite.\\
+Based on i) and ii), we can know the kernel matrix $K$ is symmetric and positive semidefinite, the kernel function $K$, it is \textbf{necessarily} a kernel.
+\item $K(x,z) = -a K_1(x,z)$\\
+It's easy to see, for kernel matrices, $K = a K_1$.\\
+i) Because $\forall z \in \mathbb{R}^n, z^T K_1 z \geq 0$, we can get $\forall z \in \mathbb{R}^n, z^T K z = z^T (a K_1) z = a (z^T K_1 z)\leq 0$.\\ So, the kernel matrix $K$ is not positive semidefinite. Of course, the kernel function $K$ is \textbf{not necessarily} a kernel.\\
+Counter Example:\\
+$K_1=\begin{bmatrix}1 & 0\\ 0 & 1\end{bmatrix}, a = 1, K = \begin{bmatrix}-1 & 0\\ 0 & -1 \end{bmatrix}$. K is not positive semidefinite.
+\item $K(x,z) = K_1(x,z)K_2(x,z)$ \\
+It's easy to see, for kernel matrices, $K = K_1 \circ K_2$.\ $\circ$ is Hadamard multiplication. Let's assume that $K_1(x, y) = \phi_1(x)\phi_1(y), K_2(x, y) = \phi_2(x)\phi_2(y)$\\
+i) Because $K_1 = K_1^T, K_2 = K_2^T$, we can know $K^T = (K_1 \circ K_2)^T = K_1^T \circ K_2^T = K_1 \circ K_2 = K$. So, the kernel matrix $K$ is symmetric.\\
+ii) Because $\forall z \in \mathbb{R}^n, z^T K_1 z \geq 0\ and\ z^T K_2 z \geq 0$, we can get 
+\begin{align*}
+    \forall z \in \mathbb{R}^n, z^T K z &= z^T (K_1 \circ K_2) z\\
+    &= \sum\limits_i\sum\limits_j z_i \phi_1(x_i)\phi_1(x_j) \phi_2(x_i) \phi_2(x_j) z_j\\
+    &=\sum\limits_i\sum\limits_j z_i (\sum\limits_k\phi_1(x_i)_k\phi_1(x_j)_k) (\sum\limits_p\phi_2(x_i)_p \phi_2(x_j)_p) z_j\\
+    &=\sum\limits_k\sum\limits_p \sum\limits_i \sum\limits_j z_i\phi_1(x_i)_k \phi_1(x_j)_k \phi_2(x_i)_p \phi_2(x_j)_p z_j\\
+    &=\sum\limits_k\sum\limits_p \sum\limits_i z_i \phi_1(x_i)_k \phi_2(x_i)_p \sum\limits_j z_j \phi_1(x_j)_k \phi_2(x_j)_p\\
+    &=\sum\limits_k\sum\limits_p (\sum\limits_i z_i \phi_1(x_i)_k \phi_2(x_i)_p)^2 \geq 0
+\end{align*}    
+So, the kernel matrix $K$ is positive semidefinite.\\
+Based on i) and ii), we can know the kernel matrix $K$ is symmetric and positive semidefinite, the kernel function $K$, it is \textbf{necessarily} a kernel.
+\item $K(x,z) = f(x)f(z)$\\
+$K=\begin{bmatrix}f(x_1)f(x_1) & f(x_1)f(x_2) & ... & f(x_1)f(x_m)\\f(x_2)f(x_1) & f(x_2)f(x_2) & ... & f(x_2)f(x_m)\\ \vdots & \vdots & ... & \vdots\\f(x_m)f(x_1) & f(x_m)f(x_2) & ... & f(x_m)f(x_m)\\
+\end{bmatrix} = \begin{bmatrix}f(x_1) \\ f(x_2)\\ \vdots \\ f(x_m)\end{bmatrix}\begin{bmatrix}f(x_1) & f(x_2) & ... & f(x_m)\end{bmatrix}$\\
+Let's assume $b = \begin{bmatrix}f(x_1) \\ f(x_2)\\ \vdots \\ f(x_m)\end{bmatrix}$. So, $K = b b^T$.\\
+i)$K^T = (b b^T)^T = (b^T)^T b^T = b b^T = K$ So, $K$ is symmetric.\\
+ii)$\forall z \in \mathbb{R}^n, z^T K z = z^T b b^T z = (z^T b)^2 \geq 0$ So, $K$ is positive semidefinite.\\
+Based on i) and ii), $K$ is a valid kernel.
+\item $K(x,z) = K_3(\phi(x),\phi(z))$\\
+The kernel matrix $K$ is equal to $K_3$. So, $K$ is symmetric and positive semidefinite. $K$ is a valid kernel.
+\item $K(x,z) = p(K_1(x,z))$\\
+Let's assume $p(x) = \sum\limits_k a_k x^k, a_k >0$ and use $A^{(k)}$ to denote the hadamard product of $k$ matrices $A$. So, $K = p(K_1) = \sum\limits_k a_k K_1^{(k)}$\\
+Based on the problem e), $K_1^{(k)}$ is a valid kernel.\\
+Based on the problem c) and the fact that $a_k \geq 0$, $a_k K_1^{(k)}$ is a valid kernel.\\
+Based on the problem a), $\sum\limits_k a_k K_1^{(k)}$ is a valid kernel. So, $K$ is a valid kernel.
+\end{enumerate}
+\end{answer}
