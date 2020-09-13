@@ -1,0 +1,21 @@
+\begin{answer}
+\begin{align*}
+d^* &= \arg\max_d \ell(\theta) + d^T\nabla_{\theta'}\ell(\theta')|_{\theta'=\theta} \quad \text{subject to} \quad 
+\frac{1}{2}d^T \mathcal{I}(\theta) d = c
+\end{align*}
+\[\mathcal{L}(d, \lambda) = \log p(y; \theta) + d^T\nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta} - \lambda  [\frac{1}{2}d^T \mathcal{I}(\theta) d - c]\]
+We calculate the derivatives of $\mathcal{L}(d, \lambda)$ with respect to $d, \lambda$
+\begin{align*}
+    \frac{\partial \mathcal{L}(d, \lambda)}{\partial d} &= \nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta} - \lambda \mathcal{I}(\theta) d\\
+    \frac{\partial \mathcal{L}(d, \lambda)}{\partial \lambda} &= -\frac{1}{2}d^T \mathcal{I}(\theta) d + c\\
+\end{align*}
+By setting the first partial derivative to zero, we can get:
+$$d = \frac{1}{\lambda} \mathcal{I}(\theta)^{-1} \nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta}$$
+We plugin the above expression for $d$ into the second partial derivative and set it to zero.
+\begin{align*}
+    &\frac{1}{2}(\frac{1}{\lambda} \mathcal{I}(\theta)^{-1} \nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta})^T \mathcal{I}(\theta) (\frac{1}{\lambda} \mathcal{I}(\theta)^{-1} \nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta}) = c\\
+    &\lambda = \sqrt{\frac{1}{2c} (\nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta})^T \mathcal{I}(\theta)^{-1} (\nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta}})
+\end{align*}
+Plug that expression for $\lambda$ back into unscaled $d$:
+$$d^* = \sqrt{\frac{2c}{(\nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta})^T \mathcal{I}(\theta)^{-1} (\nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta})}} \mathcal{I}(\theta)^{-1} \nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta}$$
+\end{answer}

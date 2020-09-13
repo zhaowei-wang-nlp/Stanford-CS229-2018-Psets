@@ -1,0 +1,13 @@
+\begin{answer}
+At first, we only calculate the derivative $\frac{\partial (o^{(i)} - y^{(i)})^2}{\partial w^{[1]}_{1,2}}$. To be convenient, $w^{[1]}_j = \begin{bmatrix} w^{[1]}_{0, j} \\ w^{[1]}_{1, j} \\ w^{[1]}_{2, j}\end{bmatrix}$, $w^{[2]} = \begin{bmatrix} w^{[2]}_{0} \\ w^{[2]}_{1} \\ w^{[2]}_{2}\\ w^{[2]}_{3}\end{bmatrix}$, $x^{(i)} = \begin{bmatrix}1\\ x^{(i)}_1\\ x^{(i)}_2 \end{bmatrix}$, $h = \begin{bmatrix}1\\ h_1\\ h_2\\ h_3 \end{bmatrix}$
+\begin{align*}
+    \frac{\partial (o^{(i)} - y^{(i)})^2}{\partial w^{[1]}_{1,2}} &= 2(o^{(i)} - y^{(i)}) \cdot \frac{\partial o^{(i)}}{\partial h_2} \cdot \frac{\partial h_2}{\partial w^{[1]}_{1,2}}\\
+    &= 2(o^{(i)} - y^{(i)}) \sigma(w^{[2]^T} h) (1 - \sigma(w^{[2]^T} h)) w^{[2]}_2 \frac{\partial h_2}{\partial w^{[1]}_{1, 2}}\\
+    &= 2(o^{(i)} - y^{(i)}) \sigma(w^{[2]^T} h) (1 - \sigma(w^{[2]^T} h)) w^{[2]}_2 \sigma(w^{[1]^T}_2 x^{(i)}) (1 - \sigma(w^{[1]^T}_2 x^{(i)})) x^{(i)}_1\\
+    &= 2(o^{(i)} - y^{(i)}) o^{(i)} (1 - o^{(i)})\sigma(w^{[1]^T}_2 x^{(i)}) (1 - \sigma(w^{[1]^T}_2 x^{(i)})) w^{[2]}_2 x^{(i)}_1
+\end{align*}
+So, we can sum the derivative of every $x^{(i)}$ to get the derivative of $l$:
+\begin{align*}
+    \frac{\partial l}{\partial w^{[1]}_{1,2}} &= \frac{2}{m} \sum\limits_{i=1}^m (o^{(i)} - y^{(i)}) o^{(i)} (1 - o^{(i)})\sigma(w^{[1]^T}_2 x^{(i)}) (1 - \sigma(w^{[1]^T}_2 x^{(i)})) w^{[2]}_2 x^{(i)}_1
+\end{align*}
+\end{answer}

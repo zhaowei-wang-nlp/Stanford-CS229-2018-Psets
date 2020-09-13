@@ -1,0 +1,13 @@
+\begin{answer}
+\begin{align*}
+    \KL(p_\theta||p_{\tilde{\theta}}) &= \int_{-\infty}^{\infty} p(y;\theta) \log \frac{p(y;\theta)}{p(y;\tilde{\theta})} dy\\
+    &= \int_{-\infty}^{\infty} p(y;\theta) \log p(y;\theta)dy - \int_{-\infty}^{\infty} p(y;\theta) \log p(y;\tilde{\theta}) dy\\
+    &\approx \int_{-\infty}^{\infty} p(y;\theta) \log p(y;\theta)dy - \int_{-\infty}^{\infty}p(y;\theta) \log p(y;\theta)dy - \int_{-\infty}^{\infty}p(y;\theta) (\tilde{\theta} - \theta)^T \nabla_{\tilde{\theta}} \log p(y;\tilde{\theta})dy\\
+    &- \frac{1}{2}\int_{-\infty}^{\infty}p(y;\theta) (\tilde{\theta} - \theta)^T  \nabla^2_{\tilde{\theta}} \log p(y; \tilde{\theta}) (\tilde{\theta} - \theta)dy\\
+    &= (\tilde{\theta} - \theta)^T \mathbb{E}_{y\sim p(y;\theta)} [\nabla_{\tilde{\theta}} \log p(y;\tilde{\theta})] + \frac{1}{2}\int_{-\infty}^{\infty}p(y;\theta) (\tilde{\theta} - \theta)^T  (-\nabla^2_{\tilde{\theta}} \log p(y; \tilde{\theta})) (\tilde{\theta} - \theta)dy\\
+    &= \frac{1}{2}(\tilde{\theta} - \theta)^T \int_{-\infty}^\infty p(y;\theta) (-\nabla^2_{\tilde{\theta}} \log p(y; \tilde{\theta}))dy (\tilde{\theta} - \theta)\\
+    &= \frac{1}{2}(\tilde{\theta} - \theta)^T \mathcal{I}(\theta) (\tilde{\theta} - \theta)
+\end{align*}
+Eventually, replace $\tilde{\theta}$ with $\theta+d$:
+$$\KL(p_\theta||p_{\theta+d})=\frac{1}{2}d^T \mathcal{I}(\theta) d$$
+\end{answer}

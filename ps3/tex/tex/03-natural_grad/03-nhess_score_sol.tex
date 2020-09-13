@@ -1,0 +1,10 @@
+\begin{answer}
+\begin{align*}
+    &\mathbb{E}_{y\sim p(y;\theta)}[-\nabla^2_{\theta'} \log p(y;\theta')|_{\theta'=\theta}]\\
+    &= \mathbb{E}_{y\sim p(y;\theta)}[-\nabla_{\theta'} (\frac{1}{p(y;\theta')}\nabla_{\theta'} p(y;\theta'))|_{\theta'=\theta}]\\
+    &= \mathbb{E}_{y\sim p(y;\theta)}[\frac{1}{p(y;\theta')^2}\nabla_{\theta'} p(y;\theta') \nabla_{\theta'} p(y;\theta')^T - \frac{1}{p(y;\theta')}\nabla^2_{\theta'}p(y;\theta')|_{\theta'=\theta}]\\
+    &= \mathbb{E}_{y\sim p(y;\theta)}[\nabla_{\theta'} \log p(y;\theta') \nabla_{\theta'} \log p(y;\theta')^T] - \int_{-\infty}^\infty \nabla^2_{\theta'}p(y;\theta')dy\\
+    &= \mathbb{E}_{y\sim p(y;\theta)}[\nabla_{\theta'} \log p(y;\theta') \nabla_{\theta'} \log p(y;\theta')^T]\\
+    &=\mathcal{I}(\theta)
+\end{align*}
+\end{answer}

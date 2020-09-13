@@ -1,0 +1,7 @@
+\begin{answer}
+\begin{align*}
+    \ell_\text{semi-sup}(\theta^{(t+1)}) &\geq \sum_{i=1}^m\left( \sum_{z^{(i)}} Q^{(t)}_i(z^{(i)}) \log \frac{ p(x^{(i)}, z^{(i)};\theta^{(t+1)}) }{ Q^{(t)}_i(z^{(i)})}\right)  + \alpha \left(\sum_{i=1}^{\tilde{m}} \log p(\tilde{x}^{(i)},\tilde{z}^{(i)};\theta^{(t+1)})\right)\\
+    & \geq \sum_{i=1}^m\left( \sum_{z^{(i)}} Q^{(t)}_i(z^{(i)}) \log \frac{ p(x^{(i)}, z^{(i)};\theta^{(t)}) }{ Q^{(t)}_i(z^{(i)})}\right)  + \alpha \left(\sum_{i=1}^{\tilde{m}} \log p(\tilde{x}^{(i)},\tilde{z}^{(i)};\theta^{(t)})\right)\\
+    &= \ell_\text{semi-sup}(\theta^{(t)})
+\end{align*}
+\end{answer}

@@ -1,0 +1,21 @@
+\begin{answer}\\
+$\phi, \mu, \Sigma$ are the parameters that need to be re-estimated in the M-step.
+\begin{align*}
+    \ell_\text{semi-sup}(\theta) &= \sum_{i=1}^m\left( \sum_{z^{(i)}} Q^{(t)}_i(z^{(i)}) \log \frac{ p(x^{(i)}, z^{(i)};\theta) }{ Q^{(t)}_i(z^{(i)})}\right)  + \alpha \left(\sum_{i=1}^{\tilde{m}} \log p(\tilde{x}^{(i)},\tilde{z}^{(i)};\theta)\right)\\
+\end{align*}
+We take the derivatives of $\ell_\text{semi-sup}(\theta)$ with respect to $\phi, \mu, \Sigma$ and set those derivatives to zero.\\
+Based on the lecture notes, it's obvious to see that update rules are following( to be convenient, use $w^{(i)}_j = Q_i(z^{(i)} = j)$):
+\begin{align*}
+    &\nabla_{\mu_j} \ell_\text{semi-sup}(\theta)= \sum\limits_{i=1}^m w^{(i)}_j (\Sigma^{-1}_j x^{(i)} - \Sigma^{-1}_j \mu_j) + \alpha \sum\limits_{i=1}^{\tilde{m}}1\{\tilde{z}^{(i)}=j\} (\Sigma^{-1}_j \tilde{x}^{(i)} - \Sigma^{-1}_j \mu_j)\\
+    &\mu_j = \frac{\sum\limits_{i=1}^m w^{(i)}_j x^{(i)} + \alpha \sum\limits_{i=1}^{\tilde{m}} 1\{\tilde{z}^{(i)} = j\} \tilde{x}^{(i)}}{\sum\limits_{i=1}^m w^{(i)}_j + \alpha \sum\limits_{i=1}^{\tilde{m}} 1\{\tilde{z}^{(i)} = j\}}
+\end{align*}
+Similarly, we can get the update rule of $\Sigma$:
+\begin{align*}
+    \Sigma_j = \frac{\sum\limits_{i=1}^m w^{(i)}_j (x^{(i)} - \mu_j) (x^{(i)} - \mu_j)^T + \alpha \sum\limits_{i=1}^{\tilde{m}} 1\{\tilde{z}^{(i)} = j\}(\tilde{x}^{(i)} - \mu_j)(\tilde{x}^{(i)} - \mu_j)^T}{\sum\limits_{i=1}^m w^{(i)}_j + \alpha \sum\limits_{i=1}^{\tilde{m}} 1\{\tilde{z}^{(i)} = j\}}
+\end{align*}
+For the $\phi$, we need to use Lagrange multiplier method, and the result is following:
+\begin{align*}
+    &\mathcal{L}(\phi, \lambda) = \sum\limits_{i=1}^m \sum\limits_{j=1}^k w^{(i)}_j \log \phi_j + \sum\limits_{i=1}^{\tilde{m}}\sum\limits_{j=1}^k 1\{\tilde{z}^{(i)} = j\}\log \phi_j + \lambda (\sum\limits_{j=1}^k \phi_j - 1)\\
+    &\phi_j = \frac{\sum\limits_{i=1}^m w^{(i)}_j + \alpha\sum\limits_{i=1}^{\tilde{m}} 1\{\tilde{z}^{(i)} = j\}}{m+\alpha \tilde{m}}
+\end{align*}
+\end{answer}

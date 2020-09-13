@@ -1,0 +1,8 @@
+\begin{answer}\\
+The update rule of unscaled natural gradient is $\theta =\theta + \alpha \mathcal{I}(\theta)^{-1} \nabla_{\theta'}\log p(y; \theta')|_{\theta'=\theta}$
+recall the formula of $\mathcal{I}(\theta)^{-1}$:
+$$\mathcal{I}(\theta) = \mathbb{E}_{y\sim p(y;\theta)}[-\nabla^2_{\theta'} \log p(y;\theta')|_{\theta'=\theta}] = -\mathbb{E}_{y\sim p(y;\theta)}[\nabla^2_{\theta'} \ell(\theta')|_{\theta'=\theta}] = -\mathbb{E}_{y\sim p(y;\theta)}(H)$$
+note that $H$ doesn't contain any $y$ in its formula. So, $\mathcal{I}(\theta) = -\mathbb{E}_{y\sim p(y;\theta)}(H) = -H$. Then, the natural gradient rule can be rewritten as $\theta =\theta - \alpha H^{-1} \nabla_{\theta'}\log \ell( \theta')|_{\theta'=\theta}$
+The update rule of Newton's Mehtod is $\theta =\theta - H^{-1} \nabla_{\theta'}\log \ell( \theta')|_{\theta'=\theta}$.\\
+We can see that the directions of both update rules have the same direction but different step scale.
+\end{answer}

@@ -1,0 +1,8 @@
+\begin{answer}
+\begin{align*}
+    \mathcal{I}(\theta) &= \text{Cov}_{y \sim p(y;\theta)}[\nabla_{\theta'}\log p(y;\theta')|_{\theta'=\theta}]\\
+    &= \mathbb{E}_{y \sim p(y; \theta)}[(\nabla_{\theta'}\log p(y;\theta')|_{\theta'=\theta} - 0)(\nabla_{\theta'}\log p(y;\theta')|_{\theta'=\theta} - 0)^T]\\
+    &(\mathbb{E}[\nabla_{\theta'}\log p(y;\theta')|_{\theta'=\theta}] = 0)\\
+    &=\mathbb{E}_{y\sim p(y;\theta)}[\nabla_{\theta'} \log p(y;\theta')\nabla_{\theta'} \log p(y;\theta')^\top|_{\theta'=\theta}]
+\end{align*}
+\end{answer}

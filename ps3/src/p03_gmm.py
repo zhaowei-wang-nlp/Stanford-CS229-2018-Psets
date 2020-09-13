@@ -32,6 +32,17 @@ def main(is_semi_supervised, trial_num):
     # phi should be a numpy array of shape (K,)
     # (3) Initialize the w values to place equal probability on each Gaussian
     # w should be a numpy array of shape (m, K)
+    m, n = x.shape
+    x_copy = x.copy()
+    np.random.shuffle(x_copy)
+    batch_size = (m + 3) // 4
+    mu, sigma, phi = np.zeros((K, n)), np.zeros((K, n, n)), np.ones(K) / K
+    w = np.ones((m, K)) / K
+    for i in range(K):
+        beg, end = i * batch_size, min((i + 1) * batch_size, m)
+        mu[i] = x_copy[beg: end].mean(axis=0)
+        zero_mean = x_copy[beg: end] - mu[i]
+        sigma[i] = zero_mean.T.dot(zero_mean) / (end - beg)
     # *** END CODE HERE ***
 
     if is_semi_supervised:
@@ -74,14 +85,42 @@ def run_em(x, w, phi, mu, sigma):
     it = 0
     ll = prev_ll = None
     while it < max_iter and (prev_ll is None or np.abs(ll - prev_ll) >= eps):
-        pass  # Just a placeholder for the starter code
         # *** START CODE HERE
         # (1) E-step: Update your estimates in w
+        m, n = x.shape
+        for i in range(K):
+            zero_mean = np.expand_dims(x - mu[i], -1)
+            sigma_inv = np.linalg.inv(sigma[i])
+            value = -0.5 * np.matmul(np.matmul(zero_mean.transpose(0, 2, 1), sigma_inv), zero_mean).squeeze()
+            value = np.exp(value)
+            value *= 1 / (np.power(2 * np.pi, n/2) * np.sqrt(np.linalg.det(sigma[i])))
+            w[:, i] = value * phi[i]
+        w /= w.sum(axis = 1, keepdims = True)
         # (2) M-step: Update the model parameters phi, mu, and sigma
+        phi[:] = w.sum(axis=0) / m
+        # w.t() (K x m x 1)  x (1 x m x n) 
+        mu[:] = (np.expand_dims(w.T, -1) * np.expand_dims(x, 0)).sum(axis=1) / np.expand_dims(phi * m, -1)
+        # mu(K x 1 x n) x(1 x m x n) 
+        zero_mean = np.expand_dims(x, 0) - np.expand_dims(mu, 1)
+        sigma[:] = np.matmul(zero_mean.transpose(0, 2, 1), np.expand_dims(w.T, -1) * zero_mean)
+        sigma /= np.expand_dims(phi * m, axis=(1, 2))
         # (3) Compute the log-likelihood of the data to check for convergence.
         # By log-likelihood, we mean `ll = sum_x[log(sum_z[p(x|z) * p(z)])]`.
         # We define convergence by the first iteration where abs(ll - prev_ll) < eps.
         # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
+        prev_ll = ll
+        p_x = np.zeros(m)
+        for i in range(K):
+            zero_mean = np.expand_dims(x - mu[i], -1)
+            sigma_inv = np.linalg.inv(sigma[i])
+            value = -0.5 * np.matmul(np.matmul(zero_mean.transpose(0, 2, 1), sigma_inv), zero_mean).squeeze()
+            value = np.exp(value)
+            value *= 1 / (np.power(2 * np.pi, n/2) * np.sqrt(np.linalg.det(sigma[i])))
+            p_x += value * phi[i]
+        ll = np.sum(np.log(p_x))
+        
+        it += 1
+        print('Iter {}, Likelihood {}'.format(it, ll))
         # *** END CODE HERE ***
 
     return w
@@ -116,11 +155,55 @@ def run_semi_supervised_em(x, x_tilde, z, w, phi, mu, sigma):
     it = 0
     ll = prev_ll = None
     while it < max_iter and (prev_ll is None or np.abs(ll - prev_ll) >= eps):
-        pass  # Just a placeholder for the starter code
         # *** START CODE HERE ***
         # (1) E-step: Update your estimates in w
+        m, n = x.shape
+        m_tilde = x_tilde.shape[0]
+        for i in range(K):
+            zero_mean = np.expand_dims(x - mu[i], -1)
+            sigma_inv = np.linalg.inv(sigma[i])
+            value = -0.5 * np.matmul(np.matmul(zero_mean.transpose(0, 2, 1), sigma_inv), zero_mean).squeeze()
+            value = np.exp(value)
+            value *= 1 / (np.power(2 * np.pi, n/2) * np.sqrt(np.linalg.det(sigma[i])))
+            w[:, i] = value * phi[i]
+        w /= w.sum(axis = 1, keepdims = True)
+        w_tilde = np.zeros((m_tilde, K))
+        for i in range(K):
+            w_tilde[:, i] = (z == i).squeeze()
+        
         # (2) M-step: Update the model parameters phi, mu, and sigma
+        phi[:] = (w.sum(axis=0) + alpha * w_tilde.sum(axis=0)) / (m + alpha * m_tilde)
+        # w.t() (K x m x 1)  x (1 x m x n) 
+        mu[:] = (np.expand_dims(w.T, -1) * np.expand_dims(x, 0)).sum(axis=1)
+        # w_tilde.t() (K x m_tilde x 1)  x (1 x m_tilde x n) 
+        mu += alpha * (np.expand_dims(w_tilde.T, -1) * np.expand_dims(x_tilde, 0)).sum(axis=1)
+        mu /= np.expand_dims(phi * (m + alpha * m_tilde), -1)
+        # mu(K x 1 x n) x(1 x m x n) 
+        zero_mean = np.expand_dims(x, 0) - np.expand_dims(mu, 1)
+        sigma[:] = np.matmul(zero_mean.transpose(0, 2, 1), np.expand_dims(w.T, -1) * zero_mean)
+        # mu(K x 1 x n) x_tilde(1 x m x n) 
+        zero_mean = np.expand_dims(x_tilde, 0) - np.expand_dims(mu, 1)
+        sigma += alpha * np.matmul(zero_mean.transpose(0, 2, 1), np.expand_dims(w_tilde.T, -1) * zero_mean)
+        sigma /= np.expand_dims(phi * (m + alpha * m_tilde), axis=(1, 2))
         # (3) Compute the log-likelihood of the data to check for convergence.
+        prev_ll = ll
+
+        def get_ll(x, phi, mu, sigma, m):
+            p_x = np.zeros(m)
+            for i in range(K):
+                zero_mean = np.expand_dims(x - mu[i], -1)
+                sigma_inv = np.linalg.inv(sigma[i])
+                value = -0.5 * np.matmul(np.matmul(zero_mean.transpose(0, 2, 1), sigma_inv), zero_mean).squeeze()
+                value = np.exp(value)
+                value *= 1 / (np.power(2 * np.pi, n/2) * np.sqrt(np.linalg.det(sigma[i])))
+                p_x += value * phi[i]
+            return np.sum(np.log(p_x))
+        
+        ll = get_ll(x, phi, mu, sigma, m)
+        ll += get_ll(x_tilde, phi, mu, sigma, m_tilde)
+        
+        it += 1
+        print('Iter {}, Likelihood {}'.format(it, ll))
         # Hint: Make sure to include alpha in your calculation of ll.
         # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
         # *** END CODE HERE ***
@@ -197,5 +280,5 @@ if __name__ == '__main__':
         # Once you've implemented the semi-supervised version,
         # uncomment the following line.
         # You do not need to add any other lines in this code block.
-        # main(with_supervision=True, trial_num=t)
+        main(is_semi_supervised=True, trial_num=t)
         # *** END CODE HERE ***

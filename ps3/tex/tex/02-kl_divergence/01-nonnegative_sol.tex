@@ -1,0 +1,16 @@
+\begin{answer}
+\begin{align}
+    \KL(P||Q) &= \sum\limits_x P(x) \log \frac{P(x)}{Q(x)}\\
+    &= -E_{\sim P}(\log \frac{Q(x)}{P(x)})\\
+    &\geq -\log E_{\sim P}(\frac{Q(x)}{P(x)})\\
+    &= - \log \sum\limits_x P(x) \frac{Q(x)}{P(x)}\\
+    &= - \log \sum\limits_x Q(x)\\
+    &\geq -\log 1 = 0\\
+\end{align}
+So, $\KL(P||Q)$ is always equal or larger than $0$.\\
+\begin{itemize}
+    \item If $P = Q$, because $\frac{Q(x)}{P(x)}$ is a constant, formula (2) will be equal to formula (3). Also, $\sum\limits_x Q(x)$ will be equal to $1$. We can know that current $\KL(P||Q)$ equals to $0$.
+    \item If $\KL(P||Q) = 0$, because $-log$ is strictly convex, $\frac{Q(x)}{P(x)}$ is a constant. Also, $\sum\limits_x Q(x)$ will be equal to $1$. Based on above conditions, we can know that $P = Q$ (note that only $\frac{Q(x)}{P(x)}$ is a constant doesn't mean that $P=Q$. For example, $P(0) = P(1) = 0.5$ and $Q(1) = Q(2) = Q(3) = Q(4) = 0.25$. $\frac{Q(x)}{P(x)}$ is $0.5$ when $x$ is in $P$'s domain.) 
+\end{itemize}
+In conclusion, $\KL(P\|Q) = 0 \ \ \ \mbox{ if and only if } P=Q$.
+\end{answer}

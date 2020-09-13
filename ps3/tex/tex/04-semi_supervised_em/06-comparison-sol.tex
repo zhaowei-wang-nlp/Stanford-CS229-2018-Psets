@@ -1,0 +1,10 @@
+\begin{answer}
+\begin{enumerate}[label=\roman*.]
+    \item Number of iterations taken to converge.\\
+    The unsupervised EM takes about 100-120 iterations to converge, while the semi-supervised EM only takes about 30 iterations. Maybe this is because there are a few examples with fixed labels that accelerate the convergence rate.
+    \item Stability (\emph{i.e.,} how much did assignments change with different random initializations?)\\
+    The resulting assignments of the unsupervised EM changes, while the semi-supervised EM changes a little
+    \item Overall quality of assignments.\\
+    The dataset was sampled from a mixture of three low-variance Gaussian distributions, and a fourth, high-variance Gaussian distribution. The resulting assignments of unsupervised EM algorithm finds two high-variance distributions, which indicates the unsupervised EM has poor performance. On the contrary, the semi-supervised EM algorithm finds only one high-variance distribution. 
+\end{enumerate}
+\end{answer}

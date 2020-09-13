@@ -1,0 +1,4 @@
+\begin{answer}
+Even though there are two layers (hidden layer and output layer) in our neural network, without a non-linear activation function, our neural network is equivalent to a linear function.\\
+Assume $o = step(z)$, where $step$ is the step function. So, $z$ can be written as a linear function of $x$: $$z = w^{[2]}_0+\sum\limits_{i=1}^3 w^{[1]}_{0,i} w^{[2]}_{i} + (\sum\limits_{i=1}^3 w^{[1]}_{1, i} w^{[2]}_{i}) x_1 + (\sum\limits_{i=1}^3 w^{[1]}_{2, i} w^{[2]}_{i}) x_2$$. In conclusion, the decision boundary is only a straight line. It's impossible to have a set of weights that allow the neural network to classify this dataset with 100\% accuracy?
+\end{answer}

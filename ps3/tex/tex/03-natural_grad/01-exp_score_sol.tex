@@ -1,0 +1,9 @@
+\begin{answer}
+\begin{align*}
+    &\mathbb{E}_{y\sim p(y;\theta)}[\nabla_{\theta'} \log p(y;\theta')|_{\theta'=\theta}]\\
+    &= \int_{-\infty}^{\infty}p(y; \theta)\nabla_{\theta'} \log p(y;\theta')|_{\theta'=\theta}dy\\
+    &= \int_{-\infty}^{\infty}p(y; \theta) \frac{1}{p(y;\theta)}\nabla_{\theta}p(y; \theta) dy\\
+    &= \nabla_\theta \int_{-\infty}^{\infty} p(y; \theta) dy\\
+    &= \nabla_\theta 1 = 0
+\end{align*}
+\end{answer}

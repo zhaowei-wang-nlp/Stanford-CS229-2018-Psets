@@ -1,0 +1,8 @@
+\begin{answer}
+In the E-step, we need to re-estimate $Q^{(t)}(z^{(i)})$ for all $i \in \{1,\ldots,m\}$
+The estimate rule is following:
+\begin{align*}
+    Q^{(t)}(z^{(i)}=j) &= \frac{p(z^{(i)}=j) p(x^{(i)}| z^{(i)}=j)}{\sum_k p(z^{(i)}=k) p(x^{(i)}| z^{(i)}=k)}\\
+    &= \frac{\phi_j \frac{1}{(2\pi)^{\frac{n}{2}} (|\Sigma_j|)^{\frac{1}{2}}} exp(-\frac{1}{2}(x-\mu_j)^T \Sigma_j^{-1}(x-\mu_j))}{\sum_k \phi_k \frac{1}{(2\pi)^{\frac{n}{2}} (|\Sigma_k|)^{\frac{1}{2}}} exp(-\frac{1}{2}(x-\mu_k)^T \Sigma_k^{-1}(x-\mu_k))}
+\end{align*}
+\end{answer}
